@@ -1,5 +1,6 @@
 package de.neuefische.backend.repo;
 
+import de.neuefische.backend.model.ApiTask;
 import de.neuefische.backend.model.Task;
 import org.springframework.stereotype.Repository;
 
@@ -9,18 +10,18 @@ import java.util.List;
 @Repository
 public class ToDoRepo {
 
-    private List<Task> tasks = new ArrayList<>();
+    private List<ApiTask> tasks = new ArrayList<>();
 
-    public List<Task> showAllTasks() {
+    public List<ApiTask> showAllTasks() {
         return this.tasks;
     }
 
-    public Task add(Task task) {
-        tasks.add(task);
-        return task;
+    public void add(String description, String status) {
+        ApiTask apiTask = new ApiTask(description, status);
+        tasks.add(apiTask);
     }
 
-    public void deleteTask(String id) {
-        tasks.removeIf(task -> task.getId().equals(id));
-    }
+//    public void deleteTask(String id) {
+//        tasks.removeIf(task -> task.getId().equals(id));
+//    }
 }

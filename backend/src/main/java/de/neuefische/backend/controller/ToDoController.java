@@ -1,6 +1,7 @@
 package de.neuefische.backend.controller;
 
 
+import de.neuefische.backend.model.ApiTask;
 import de.neuefische.backend.model.Task;
 import de.neuefische.backend.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,18 @@ public class ToDoController {
     }
 
     @GetMapping
-    public List<Task> listTasks(){
+    public List<ApiTask> listTasks(){
         return toDoService.showAllList();
     }
 
     @PostMapping
-    public Task postTask(@RequestBody Task task){
-        return toDoService.add(task);
+    public void postTask(@RequestBody String description, String status){
+        toDoService.add(description, status);
     }
 
-    @DeleteMapping(path = "{id}")
-    public void deleteTask(@PathVariable String id){
-        toDoService.deleteTask(id);
-    }
+//    @DeleteMapping(path = "{id}")
+//    public void deleteTask(@PathVariable String id){
+//        toDoService.deleteTask(id);
+//    }
 
 }

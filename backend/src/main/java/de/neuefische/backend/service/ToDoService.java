@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.model.ApiTask;
 import de.neuefische.backend.model.Task;
 import de.neuefische.backend.repo.ToDoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,15 @@ public class ToDoService {
         this.toDoRepo = toDoRepo;
     }
 
-    public List<Task> showAllList() {
+    public List<ApiTask> showAllList() {
         return toDoRepo.showAllTasks();
     }
 
-    public Task add(Task task) {
-        return toDoRepo.add(task);
+    public void add(String description, String status) {
+        toDoRepo.add(description, status);
     }
 
-    public void deleteTask(String id) {
-        toDoRepo.deleteTask(id);
-    }
+//    public void deleteTask(String id) {
+//        toDoRepo.deleteTask(id);
+//    }
 }
