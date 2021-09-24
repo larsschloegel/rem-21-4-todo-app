@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -27,13 +28,14 @@ public class ToDoRepo {
         return UUID.randomUUID().toString();
     }
 
-    public Task findId(String id) {
-        Task foundTask = new Task();
+    public Optional<Task> findId(String id) {
+
         for(Task task : tasks){
             if (task.getId().equals(id)){
+                return Optional.of(task);
             }
         }
-        return foundTask;
+        return Optional.empty();
     }
 
 //    public void deleteTask(String id) {

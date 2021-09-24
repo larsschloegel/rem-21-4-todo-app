@@ -48,5 +48,14 @@ public class ToDoController {
         return response.get();
     }
 
+    @PutMapping("{id}")
+    public void updateTask(@PathVariable String id){
+        Optional<Task> response = toDoService.findId(id);
+        if (response.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "taskmitid" + id + "nicht gefunden");
+        }
+        response.get().setStatus("IN_PROGRESS");
+    }
+
 
 }
