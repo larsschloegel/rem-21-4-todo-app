@@ -26,6 +26,16 @@ public class ToDoRepo {
     public String generateUUID(){
         return UUID.randomUUID().toString();
     }
+
+    public Task findId(String id) {
+        Task foundTask = new Task();
+        for(Task task : tasks){
+            if (task.getId().equals(id)){
+            }
+        }
+        return foundTask;
+    }
+
 //    public void deleteTask(String id) {
 //        tasks.removeIf(task -> task.getId().equals(id));
 //    }
