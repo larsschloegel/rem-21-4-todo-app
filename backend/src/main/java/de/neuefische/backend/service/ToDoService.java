@@ -17,12 +17,12 @@ public class ToDoService {
         this.toDoRepo = toDoRepo;
     }
 
-    public List<ApiTask> showAllList() {
+    public List<Task> showAllList() {
         return toDoRepo.showAllTasks();
     }
 
-    public void add(String description, String status) {
-        toDoRepo.add(description, status);
+    public void add(ApiTask apiTask) {
+        toDoRepo.add(apiTask);
     }
 
 //    public void deleteTask(String id) {

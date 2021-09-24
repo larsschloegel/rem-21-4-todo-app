@@ -22,13 +22,13 @@ public class ToDoController {
     }
 
     @GetMapping
-    public List<ApiTask> listTasks(){
+    public List<Task> listTasks(){
         return toDoService.showAllList();
     }
 
     @PostMapping
-    public void postTask(@RequestBody String description, String status){
-        toDoService.add(description, status);
+    public void postTask(@RequestBody ApiTask apiTask){
+        toDoService.add(apiTask);
     }
 
 //    @DeleteMapping(path = "{id}")

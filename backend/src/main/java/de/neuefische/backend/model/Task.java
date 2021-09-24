@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 
 public class Task {
     private String id;
-    private String name;
+    private String description;
     private String status;          // open oder closed
 }

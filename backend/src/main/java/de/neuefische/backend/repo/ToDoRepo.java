@@ -6,21 +6,26 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class ToDoRepo {
 
-    private List<ApiTask> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
 
-    public List<ApiTask> showAllTasks() {
+    public List<Task> showAllTasks() {
         return this.tasks;
     }
 
-    public void add(String description, String status) {
-        ApiTask apiTask = new ApiTask(description, status);
-        tasks.add(apiTask);
+    public void add(ApiTask apiTask) {
+        String id = generateUUID();
+        Task task = new Task(id, apiTask.getDescription(), apiTask.getStatus());
+        tasks.add(task);
     }
 
+    public String generateUUID(){
+        return UUID.randomUUID().toString();
+    }
 //    public void deleteTask(String id) {
 //        tasks.removeIf(task -> task.getId().equals(id));
 //    }
