@@ -54,7 +54,7 @@ public class ToDoController {
         if (response.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "taskmitid" + id + "nicht gefunden");
         }
-        response.get().setStatus("IN_PROGRESS");
+       toDoService.changeStatus(response.get());
     }
 
 

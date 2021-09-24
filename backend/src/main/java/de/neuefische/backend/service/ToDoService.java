@@ -30,6 +30,10 @@ public class ToDoService {
         return toDoRepo.findId(id);
   }
 
+    public void changeStatus(Task task) {
+        toDoRepo.changeStatus(task);
+    }
+
 
 //    public void deleteTask(String id) {
 //        toDoRepo.deleteTask(id);

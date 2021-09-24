@@ -38,6 +38,14 @@ public class ToDoRepo {
         return Optional.empty();
     }
 
+    public void changeStatus(Task task) {
+        if(task.getStatus().equals("OPEN")){
+            task.setStatus("IN_PROGRESS");
+        } else if (task.getStatus().equals("IN_PROGRESS")){
+            task.setStatus("DONE");
+        }
+    }
+
 //    public void deleteTask(String id) {
 //        tasks.removeIf(task -> task.getId().equals(id));
 //    }
