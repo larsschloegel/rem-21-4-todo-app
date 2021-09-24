@@ -6,10 +6,10 @@ import de.neuefische.backend.model.Task;
 import de.neuefische.backend.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +30,14 @@ public class ToDoController {
     }
 
     @PostMapping
-    public void postTask(@RequestBody ApiTask apiTask) {
-        toDoService.add(apiTask);
+    public ResponseEntity<Object> postTask(@RequestBody ApiTask apiTask) {
+        return toDoService.add(apiTask);
     }
 
-//    @DeleteMapping(path = "{id}")
-//    public void deleteTask(@PathVariable String id){
-//        toDoService.deleteTask(id);
-//    }
+    @DeleteMapping(path = "{id}")
+    public void deleteTask(@PathVariable String id){
+        toDoService.deleteTask(id);
+    }
 
     @GetMapping("{id}")
     public Task findID(@PathVariable String id) {
