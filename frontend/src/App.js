@@ -1,62 +1,76 @@
-import styled from 'styled-components/macro'
-import AppHeader from './components/AppHeader'
-import NewTodo from './components/NewTodo'
-import Boards from './components/Boards'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import logo from './logo.svg';
+import './App.css';
+import Header from "./components/Header";
+import Board from "./components/Board";
+import ToDoData from "./components/ToDos.json"
+import {useState} from "react";
 
-const nextStatus = {
-  OPEN: 'IN_PROGRESS',
-  IN_PROGRESS: 'DONE',
-}
+function App() {
+   const [toDo, setToDo] = useState([])
+    const[description,setDescription]=useState("")
 
-export default function App() {
-  const [todos, setTodos] = useState([])
+    //const AlltoDos = ToDoData
 
-  const fetchTodos = () =>
-    axios
-      .get('/api/todo')
-      .then(response => setTodos(response.data))
-      .catch(console.error)
+    function fetchTodos(){
+        fetch("/api/todo")
+            .then(response => setToDo(response))
+            .catch(console.error)
+    }
 
-  useEffect(() => {
-    axios
-      .get('/api/todo')
-      .then(response => setTodos(response.data))
-      .catch(console.error)
-  }, [])
+    const nextStatus = {
+        OPEN: 'IN_PROGRESS',
+        IN_PROGRESS: 'DONE',
+    }
 
-  const advanceTodo = todo => {
-    const advancedTodo = { ...todo, status: nextStatus[todo.status] }
-    axios
-      .put(`/api/todo/${todo.id}`, advancedTodo)
-      .then(fetchTodos)
-      .catch(console.error)
-  }
+    function advanceStatus(toDo){
+        toDo.status=nextStatus[toDo.status]
+        console.log(toDo.status)
+    }
+    const handleDescriptionChange = event => setDescription(event.target.value)
 
-  const deleteTodo = id =>
-    axios.delete(`/api/todo/${id}`).then(fetchTodos).catch(console.error)
+    const handleSubmit = event => {
+        event.preventDefault()
+        addTodo(description)
+        setDescription('')
+    }
 
-  const addTodo = description => {
-    const todo = { description, status: 'OPEN' }
-    axios.post('/api/todo', todo).then(fetchTodos).catch(console.error)
-  }
+    const addTodo = description => {
+       const todo = { description, status: 'OPEN'}
+           fetch('/api/todo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(todo),
+        })
+               .then(response => response.json())
+               .then(todo => {
+                   console.log('Success:', todo);
+                   setToDo([...toDo,todo])
+               })
+               .catch((error) => {
+                   console.error('Error:', error);
+               });
+    }
+
 
   return (
-    <PageLayout>
-      <AppHeader />
-      <Boards todos={todos} onAdvance={advanceTodo} onDelete={deleteTodo} />
-      <NewTodo onAdd={addTodo} />
-    </PageLayout>
-  )
+        <div>
+          <Header title="ToDo App"/>
+            <Board toDos={toDo} testfunktion={advanceStatus}/>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="new-todo"
+                    placeholder="Describe the new todo"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                />
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+  );
 }
 
-const PageLayout = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: min-content 1fr min-content;
-`
+export default App;
