@@ -35,7 +35,12 @@ function App() {
             .then(response => response.json())
             .then(todo => {
                 console.log('Success:', todo);
-                setToDoState([...toDoState, advancedTodo])
+                console.log("Advanced", advancedTodo)
+                const newTodos= toDoState.filter(todo=>todo.id!==advancedTodo.id)
+                console.log("newTodo", ...newTodos)
+                setToDoState([...newTodos,advancedTodo])
+                console.log("Status setzen", toDoState)
+
             })
             .catch((error) => {
                 console.error('Error:', error);
