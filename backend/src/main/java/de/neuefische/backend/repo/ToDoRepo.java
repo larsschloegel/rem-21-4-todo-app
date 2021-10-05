@@ -19,7 +19,7 @@ public class ToDoRepo {
         return this.tasks;
     }
 
-    public ResponseEntity<Object> add(ApiTask apiTask) {
+    /*public ResponseEntity<Object> add(ApiTask apiTask) {
         String id = generateUUID();
         if (apiTask.getDescription().equals("")) {
             return ResponseEntity.badRequest().body(null);
@@ -29,7 +29,14 @@ public class ToDoRepo {
             tasks.add(task);
             return ResponseEntity.accepted().body(apiTask);
         }
+    }*/
+    public Task add(ApiTask apiTask) {
+        String id = generateUUID();
+        Task task = new Task(id, apiTask.getDescription(), apiTask.getStatus());
+        tasks.add(task);
+        return task;
     }
+
 
     public String generateUUID() {
         return UUID.randomUUID().toString();
@@ -45,12 +52,13 @@ public class ToDoRepo {
         return Optional.empty();
     }
 
-    public void changeStatus(Task task) {
+    public Task changeStatus(Task task) {
         if (task.getStatus().equals("OPEN")) {
             task.setStatus("IN_PROGRESS");
         } else if (task.getStatus().equals("IN_PROGRESS")) {
             task.setStatus("DONE");
         }
+        return task;
     }
 
     public void deleteTask(String id) {

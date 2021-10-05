@@ -2,13 +2,13 @@
 import "./BoardRow.css"
 import ToDo from "./ToDo";
 
-export default function BoardRow({title,data, testfunktion}) {
+export default function BoardRow({title,data, updateTodo}) {
 
     return (
         <section className="To-Do-Row">
             <h2>{title}</h2>
             {
-                data.map((toDo,index) => <ToDo key={index} toDo={toDo} testfunktion={testfunktion}/>)
+                data.map(toDo => <ToDo key={toDo.id} toDo={toDo} updateTodo={updateTodo}/>)
             }
         </section>
     );

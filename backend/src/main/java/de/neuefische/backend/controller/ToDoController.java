@@ -30,7 +30,7 @@ public class ToDoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> postTask(@RequestBody ApiTask apiTask) {
+    public Task postTask(@RequestBody ApiTask apiTask) {
         return toDoService.add(apiTask);
     }
 
@@ -49,12 +49,12 @@ public class ToDoController {
     }
 
     @PutMapping("{id}")
-    public void updateTask(@PathVariable String id){
+    public Task updateTask(@PathVariable String id){
         Optional<Task> response = toDoService.findId(id);
         if (response.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "taskmitid" + id + "nicht gefunden");
         }
-       toDoService.changeStatus(response.get());
+       return toDoService.changeStatus(response.get());
     }
 
 

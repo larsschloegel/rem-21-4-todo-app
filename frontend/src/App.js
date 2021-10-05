@@ -6,14 +6,14 @@ import ToDoData from "./components/ToDos.json"
 import {useState} from "react";
 
 function App() {
-   const [toDo, setToDo] = useState([])
-    const[description,setDescription]=useState("")
+    const [toDoState, setToDoState] = useState([])
+    const [description, setDescription] = useState("")
 
     //const AlltoDos = ToDoData
 
-    function fetchTodos(){
+    function fetchTodos() {
         fetch("/api/todo")
-            .then(response => setToDo(response))
+            .then(response => setToDoState(response.data))
             .catch(console.error)
     }
 
@@ -21,11 +21,28 @@ function App() {
         OPEN: 'IN_PROGRESS',
         IN_PROGRESS: 'DONE',
     }
-
-    function advanceStatus(toDo){
-        toDo.status=nextStatus[toDo.status]
-        console.log(toDo.status)
+    
+    function updateTodo(todo) {
+        console.log("Funktion läuft")
+        const advancedTodo = {...todo, status: nextStatus[todo.status]}
+        fetch('/api/todo/' + advancedTodo.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(advancedTodo),
+        })
+            .then(response => response.json())
+            .then(todo => {
+                console.log('Success:', todo);
+                setToDoState([...toDoState, advancedTodo])
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
+
+
     const handleDescriptionChange = event => setDescription(event.target.value)
 
     const handleSubmit = event => {
@@ -35,29 +52,29 @@ function App() {
     }
 
     const addTodo = description => {
-       const todo = { description, status: 'OPEN'}
-           fetch('/api/todo', {
+        const todo = {description, status: 'OPEN'}
+        fetch('/api/todo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(todo),
         })
-               .then(response => response.json())
-               .then(todo => {
-                   console.log('Success:', todo);
-                   setToDo([...toDo,todo])
-               })
-               .catch((error) => {
-                   console.error('Error:', error);
-               });
+            .then(response => response.json())
+            .then(todo => {
+                console.log('Success:', todo);
+                setToDoState([...toDoState, todo])
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
 
-  return (
+    return (
         <div>
-          <Header title="ToDo App"/>
-            <Board toDos={toDo} testfunktion={advanceStatus}/>
+            <Header title="ToDo App"/>
+            <Board toDos={toDoState} updateTodo={updateTodo}/>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -70,7 +87,7 @@ function App() {
             </form>
         </div>
 
-  );
+    );
 }
 
 export default App;

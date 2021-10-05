@@ -23,7 +23,7 @@ public class ToDoService {
         return toDoRepo.showAllTasks();
     }
 
-    public ResponseEntity<Object> add(ApiTask apiTask) {
+    public Task add(ApiTask apiTask) {
         return toDoRepo.add(apiTask);
     }
 
@@ -31,8 +31,9 @@ public class ToDoService {
         return toDoRepo.findId(id);
   }
 
-    public void changeStatus(Task task) {
+    public Task changeStatus(Task task) {
         toDoRepo.changeStatus(task);
+        return task;
     }
 
 
