@@ -3,13 +3,18 @@ import './App.css';
 import Header from "./components/Header";
 import Board from "./components/Board";
 import ToDoData from "./components/ToDos.json"
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import getTodos from "./service/todo-api-service";
 
 function App() {
     const [toDoState, setToDoState] = useState([])
     const [description, setDescription] = useState("")
 
-    //const AlltoDos = ToDoData
+
+    useEffect(() => {
+        getTodos()
+            .then(todos => setToDoState(todos))
+    }, [])
 
     function fetchTodos() {
         fetch("/api/todo")
@@ -21,9 +26,8 @@ function App() {
         OPEN: 'IN_PROGRESS',
         IN_PROGRESS: 'DONE',
     }
-    
+
     function updateTodo(todo) {
-        console.log("Funktion läuft")
         const advancedTodo = {...todo, status: nextStatus[todo.status]}
         fetch('/api/todo/' + advancedTodo.id, {
             method: 'PUT',
@@ -34,14 +38,28 @@ function App() {
         })
             .then(response => response.json())
             .then(todo => {
-                console.log('Success:', todo);
-                console.log("Advanced", advancedTodo)
-                const newTodos= toDoState.filter(todo=>todo.id!==advancedTodo.id)
-                console.log("newTodo", ...newTodos)
-                setToDoState([...newTodos,advancedTodo])
-                console.log("Status setzen", toDoState)
-
+                //console.log('Success:', todo);
+                //console.log("Advanced", advancedTodo)
+                const newTodos = toDoState.filter(todo => todo.id !== advancedTodo.id)
+                // console.log("newTodo", ...newTodos)
+                setToDoState([...newTodos, advancedTodo])
+                //console.log("Status setzen", toDoState)
             })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function deleteTodo(todo) {
+        fetch('/api/todo/' + todo.id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(todo)
+
+        })
+            .then(() => setToDoState(toDoState.filter(item => item.id !== todo.id)))
             .catch((error) => {
                 console.error('Error:', error);
             });
@@ -67,7 +85,7 @@ function App() {
         })
             .then(response => response.json())
             .then(todo => {
-                console.log('Success:', todo);
+                //console.log('Success:', todo);
                 setToDoState([...toDoState, todo])
             })
             .catch((error) => {
@@ -79,7 +97,7 @@ function App() {
     return (
         <div>
             <Header title="ToDo App"/>
-            <Board toDos={toDoState} updateTodo={updateTodo}/>
+            <Board toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteTodo}/>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
