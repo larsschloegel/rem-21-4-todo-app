@@ -85,7 +85,6 @@ function App() {
         })
             .then(response => response.json())
             .then(todo => {
-                //console.log('Success:', todo);
                 setToDoState([...toDoState, todo])
             })
             .catch((error) => {
