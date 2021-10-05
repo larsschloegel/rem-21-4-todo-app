@@ -1,15 +1,31 @@
+import axios from "axios";
 
 
-export default function getTodos() {
+export const getTodos=() => {
 
-
-    return (
-        fetch("/api/todo")
-            .then(response => {
-                if(response.ok) {
-                    return response.json();
-                }
-                throw new Error("fetch failed")
-            })
-    )
+    return axios
+        .get("/api/todo")
+        .then(response => response.data)
+        .catch((error)=> console.log(error))
 }
+
+export const postTodo = (inputDescription) => {
+    const newTodo = {
+        description: inputDescription,
+        status: "OPEN",
+    }
+    return axios
+        .post("/api/todo", newTodo)
+        .then(response => response.data)
+        .catch((error)=> console.log(error))
+}
+export const putTodo = (todo) => {
+    return axios
+        .put("/api/todo/"+ todo.id, todo)
+        .then(response => response.data)
+        .catch((error)=> console.log(error))
+}
+export const deleteTodo = (todo) => {
+    return axios
+        .delete("/api/todo/"+ todo.id)
+    }
