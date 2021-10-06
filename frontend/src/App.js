@@ -9,7 +9,7 @@ import {Link, Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Navigation from "./components/Navigation";
 import BoardRow from "./components/BoardRow";
 import ShowTheSpecificPage from "./components/ShowTheSpecificPage";
-import ShowHomepage from "./components/Homepage";
+import ShowHomepage from "./components/ShowHomepage";
 
 function App() {
     const [toDoState, setToDoState] = useState([])
@@ -65,10 +65,16 @@ function App() {
             <Router>
                     <Navigation/>
                     <Switch>
-                        <ShowTheSpecificPage path="/To-Do" title="To-Do" toDos={toDoState} status="OPEN" updateTodo={updateTodo}/>
-                        <ShowTheSpecificPage path="/Doing" title="Doing" toDos={toDoState} status="IN_PROGRESS" updateTodo={updateTodo}/>
-                        <ShowTheSpecificPage path="/Done" title="Done" toDos={toDoState} status="DONE" deleteTodo={deleteOneTodo}/>
-                        <ShowHomepage exact path="/" toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
+                        <Route path="/" exact>
+                            <ShowHomepage toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
+                        </Route>
+                        <Route path="/:specificPage">
+                            <ShowTheSpecificPage toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
+                        </Route>
+
+                        {/*<ShowTheSpecificPage path="/To-Do"  toDos={toDoState} status="OPEN" updateTodo={updateTodo}/>
+                        <ShowTheSpecificPage path="/Doing"  toDos={toDoState} status="IN_PROGRESS" updateTodo={updateTodo}/>
+                        <ShowTheSpecificPage path="/Done"  toDos={toDoState} status="DONE" deleteTodo={deleteOneTodo}/>*/}
                     </Switch>
             </Router>
             <form onSubmit={handleSubmit}>
