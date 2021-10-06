@@ -5,7 +5,7 @@ export default function Navigation(){
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/">All To-Do's</Link>
                 </li>
                 <li>
                     <Link to="/To-Do">To-Do</Link>

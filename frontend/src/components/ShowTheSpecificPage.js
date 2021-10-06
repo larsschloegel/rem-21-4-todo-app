@@ -3,7 +3,7 @@ import BoardRow from "./BoardRow";
 import Board from "./Board";
 
 
-export default function ShowTheSpecificRoute(props) {
+export default function ShowTheSpecificPage(props) {
     return (
         <Route path={props.path}>
             <BoardRow title={props.title} data={props.toDos.filter(todo => todo.status === props.status)}
@@ -11,5 +11,4 @@ export default function ShowTheSpecificRoute(props) {
         </Route>
 
     )
-
 }

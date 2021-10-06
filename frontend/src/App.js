@@ -8,7 +8,8 @@ import {deleteTodo, getTodos, postTodo, putTodo} from "./service/todo-api-servic
 import {Link, Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Navigation from "./components/Navigation";
 import BoardRow from "./components/BoardRow";
-import ShowTheSpecificRoute from "./components/ShowTheSpecificRoute";
+import ShowTheSpecificPage from "./components/ShowTheSpecificPage";
+import ShowHomepage from "./components/Homepage";
 
 function App() {
     const [toDoState, setToDoState] = useState([])
@@ -62,22 +63,13 @@ function App() {
         <div>
             <Header title="ToDo App"/>
             <Router>
-                <div>
                     <Navigation/>
                     <Switch>
-                        <ShowTheSpecificRoute path="/To-Do" title="To-Do" toDos={toDoState} status="OPEN"
-                                              updateTodo={updateTodo}/>
-                        <ShowTheSpecificRoute path="/Doing" title="Doing" toDos={toDoState} status="IN_PROGRESS"
-                                              updateTodo={updateTodo}/>
-                        <ShowTheSpecificRoute path="/Done" title="Done" toDos={toDoState} status="DONE"
-                                              deleteTodo={deleteOneTodo}/>
-                        <Route exact path="/">
-                            <div>
-                                <Board toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
-                            </div>
-                        </Route>
+                        <ShowTheSpecificPage path="/To-Do" title="To-Do" toDos={toDoState} status="OPEN" updateTodo={updateTodo}/>
+                        <ShowTheSpecificPage path="/Doing" title="Doing" toDos={toDoState} status="IN_PROGRESS" updateTodo={updateTodo}/>
+                        <ShowTheSpecificPage path="/Done" title="Done" toDos={toDoState} status="DONE" deleteTodo={deleteOneTodo}/>
+                        <ShowHomepage exact path="/" toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
                     </Switch>
-                </div>
             </Router>
             <form onSubmit={handleSubmit}>
                 <input
