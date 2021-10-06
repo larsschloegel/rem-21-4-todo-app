@@ -5,7 +5,7 @@ import Board from "./Board";
 
 export default function ShowTheSpecificPage(props) {
 
-    const {specificPage}= useParams()
+    const {URLtoSpecificPage}= useParams()
 
     const specificPageToStatus = {
         "To-Do": "OPEN",
@@ -13,18 +13,16 @@ export default function ShowTheSpecificPage(props) {
         "Done": "DONE"
     }
 
-
     const statusToTitle = {
         "To-Do": "Open",
         "Doing": "In Progress",
         "Done": "Done"
     }
 
-    const title = statusToTitle[specificPage]
+    const title = statusToTitle[URLtoSpecificPage]
 
     return (
-            <BoardRow title={title} data={props.toDos.filter(todo => todo.status === specificPageToStatus[specificPage])}
+            <BoardRow title={`Status: ${title}`} data={props.toDos.filter(todo => todo.status === specificPageToStatus[URLtoSpecificPage])}
                       updateTodo={props.updateTodo} deleteTodo={props.deleteTodo}/>
-
     )
 }

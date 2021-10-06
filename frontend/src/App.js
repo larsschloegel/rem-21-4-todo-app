@@ -1,20 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header";
-import Board from "./components/Board";
-import ToDoData from "./components/ToDos.json"
 import {useEffect, useState} from "react";
 import {deleteTodo, getTodos, postTodo, putTodo} from "./service/todo-api-service";
 import {Link, Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Navigation from "./components/Navigation";
-import BoardRow from "./components/BoardRow";
 import ShowTheSpecificPage from "./components/ShowTheSpecificPage";
 import ShowHomepage from "./components/ShowHomepage";
 
 function App() {
     const [toDoState, setToDoState] = useState([])
     const [description, setDescription] = useState("")
-
 
     useEffect(() => {
         getTodos()
@@ -68,13 +63,9 @@ function App() {
                         <Route path="/" exact>
                             <ShowHomepage toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
                         </Route>
-                        <Route path="/:specificPage">
+                        <Route path="/:URLtoSpecificPage">
                             <ShowTheSpecificPage toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
                         </Route>
-
-                        {/*<ShowTheSpecificPage path="/To-Do"  toDos={toDoState} status="OPEN" updateTodo={updateTodo}/>
-                        <ShowTheSpecificPage path="/Doing"  toDos={toDoState} status="IN_PROGRESS" updateTodo={updateTodo}/>
-                        <ShowTheSpecificPage path="/Done"  toDos={toDoState} status="DONE" deleteTodo={deleteOneTodo}/>*/}
                     </Switch>
             </Router>
             <form onSubmit={handleSubmit}>
