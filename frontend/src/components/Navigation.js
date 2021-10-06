@@ -8,7 +8,7 @@ export default function Navigation(){
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/Do">Do</Link>
+                    <Link to="/To-Do">To-Do</Link>
                 </li>
                 <li>
                     <Link to="/Doing">Doing</Link>
