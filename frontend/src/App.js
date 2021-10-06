@@ -5,6 +5,9 @@ import Board from "./components/Board";
 import ToDoData from "./components/ToDos.json"
 import {useEffect, useState} from "react";
 import {deleteTodo, getTodos, postTodo, putTodo} from "./service/todo-api-service";
+import {Link, Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import BoardRow from "./components/BoardRow";
 
 function App() {
     const [toDoState, setToDoState] = useState([])
@@ -54,9 +57,37 @@ function App() {
     }
 
     return (
+
         <div>
             <Header title="ToDo App"/>
-            <Board toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
+            <Router>
+                <div>
+                   <Navigation/>
+                    <Switch>
+                        <Route path="/Do">
+                            <div>
+                                <BoardRow title={"To do"} data={toDoState.filter(todo => todo.status === 'OPEN')} updateTodo={updateTodo}/>
+                            </div>
+                        </Route>
+                        <Route path="/Doing">
+                            <div>
+                                <BoardRow title={"Doing"} data={toDoState.filter(todo => todo.status === 'IN_PROGRESS')} updateTodo={updateTodo}/>
+                            </div>
+                        </Route>
+                        <Route path="/Done">
+                            <div>
+                                <BoardRow title={"Done"} data={toDoState.filter(todo => todo.status === 'DONE')} deleteTodo={deleteOneTodo}/>
+                            </div>
+                        </Route>
+                        <Route exact path="/">
+                            <div>
+                                <Board toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
+                            </div>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
