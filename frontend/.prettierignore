@@ -1,0 +1,7 @@
+.*
+*.iml
+README.md
+/node_moules
+/build
+/.idea
+package-lock.json
