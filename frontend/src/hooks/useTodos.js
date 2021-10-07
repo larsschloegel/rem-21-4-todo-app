@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {deleteTodo, getTodos, postTodo, putTodo} from "../service/todo-api-service";
 
-
 export default function useTodos() {
     const [toDoState, setToDoState] = useState([])
     const [description, setDescription] = useState("")

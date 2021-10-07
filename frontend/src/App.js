@@ -1,8 +1,6 @@
 import './App.css';
 import Header from "./components/Header";
-import {useEffect, useState} from "react";
-import {deleteTodo, getTodos, postTodo, putTodo} from "./service/todo-api-service";
-import {Link, Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ShowTheSpecificPage from "./components/ShowTheSpecificPage";
 import ShowHomepage from "./components/ShowHomepage";
@@ -11,7 +9,7 @@ import useTodos from "./hooks/useTodos";
 
 function App() {
 
-    const {toDoState, description, addTodo, updateTodo, deleteOneTodo, handleDescriptionChange, handleSubmit} = useTodos()
+    const {toDoState, description, updateTodo, deleteOneTodo, handleDescriptionChange, handleSubmit} = useTodos()
 
     return (
 

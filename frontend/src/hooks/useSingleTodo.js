@@ -2,7 +2,6 @@ import {useParams} from "react-router-dom";
 import {getTodoBy} from "../service/todo-api-service";
 import {useEffect, useState} from "react";
 
-
 export default function useSingleTodo(){
 
     const {id} = useParams()
