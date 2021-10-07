@@ -2,12 +2,12 @@ import axios from "axios";
 
 
 export const getTodos=() => {
-
     return axios
         .get("/api/todo")
         .then(response => response.data)
         .catch((error)=> console.log(error))
 }
+
 
 export const postTodo = (inputDescription) => {
     const newTodo = {
@@ -28,4 +28,9 @@ export const putTodo = (todo) => {
 export const deleteTodo = (todo) => {
     return axios
         .delete("/api/todo/"+ todo.id)
+    }
+
+    export const getTodoBy = (id) => {
+    return axios
+        .get(`/api/todo/${id}`)
     }

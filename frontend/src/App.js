@@ -6,6 +6,7 @@ import {Link, Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ShowTheSpecificPage from "./components/ShowTheSpecificPage";
 import ShowHomepage from "./components/ShowHomepage";
+import DetailsPage from "./components/DetailsPage";
 
 function App() {
     const [toDoState, setToDoState] = useState([])
@@ -63,8 +64,11 @@ function App() {
                         <Route path="/" exact>
                             <ShowHomepage toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
                         </Route>
-                        <Route path="/:URLtoSpecificPage">
+                        <Route path="/:URLtoSpecificPage" exact>
                             <ShowTheSpecificPage toDos={toDoState} updateTodo={updateTodo} deleteTodo={deleteOneTodo}/>
+                        </Route>
+                        <Route path="/todo/:id">
+                            <DetailsPage/>
                         </Route>
                     </Switch>
             </Router>
