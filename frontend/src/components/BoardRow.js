@@ -1,7 +1,14 @@
 
 import "./BoardRow.css"
 import ToDo from "./ToDo";
+import * as PropTypes from "prop-types";
 
+BoardRow.propTypes = {
+    title: PropTypes.string.isRequired,
+    data: PropTypes.array.isRequired,
+    updateTodo: PropTypes.func,
+    deleteTodo: PropTypes.func
+};
 export default function BoardRow({title,data, updateTodo, deleteTodo}) {
 
     return (

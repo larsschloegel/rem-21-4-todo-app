@@ -1,7 +1,5 @@
-import {Route, Switch, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import BoardRow from "./BoardRow";
-import Board from "./Board";
-
 
 export default function ShowTheSpecificPage(props) {
 

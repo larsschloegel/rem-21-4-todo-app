@@ -1,8 +1,14 @@
 import "./ToDo.css"
 import {useHistory} from "react-router-dom";
+import * as PropTypes from "prop-types";
+import {toDoProps} from "./Board";
 
-
-export default function ToDo({toDo, updateTodo, deleteTodo, detailView}) {
+ToDo.propTypes = {
+    toDo: toDoProps.isRequired,
+    updateTodo: PropTypes.func,
+    deleteTodo: PropTypes.func
+};
+export default function ToDo({toDo, updateTodo, deleteTodo}) {
 
     const history = useHistory()
 
