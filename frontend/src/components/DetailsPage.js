@@ -17,9 +17,9 @@ export default function DetailsPage() {
 
     return (
         <div>
-            <h2>{`ID: ${todo.id}`}</h2>
-            <p>{`Beschreibung: ${todo.description}`}</p>
-            <p>{`Status: ${todo.status}`}</p>
+            <h2>ID: {todo.id}</h2>
+            <p>Beschreibung: {todo.description}</p>
+            <p>Status: {todo.status}</p>
         </div>
     )
 }
